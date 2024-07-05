@@ -8,9 +8,20 @@
 <body style="margin: 0; overflow: hidden;">
   <a-scene embedded arjs='sourceType: webcam;'>
     <a-marker preset="hiro">
-      <a-video src="https://test-engineer1.github.io/AR_test/safari.mp4" width="2" height="1" position="0 0.5 0" autoplay loop muted></a-video>
+      <a-video id="my-video" src="https://test-engineer1.github.io/AR_test/safari.mp4" width="2" height="1" position="0 0.5 0" loop muted></a-video>
+      <a-plane position="0 -0.5 0" width="2" height="0.5" color="#000" opacity="0.5" text="value: Click to play video; color: #FFF;"></a-plane>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
+  <script>
+    document.querySelector('a-marker').addEventListener('click', function () {
+      var video = document.getElementById('my-video');
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  </script>
 </body>
 </html>
