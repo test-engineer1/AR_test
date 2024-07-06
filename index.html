@@ -6,16 +6,21 @@
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.3.2/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
+  <a-assets>
+    <!-- 動画をa-assets内に定義し、autoplayとmuted属性を追加 -->
+    <video id="ar-video" src="https://test-engineer1.github.io/AR_test/safari.mp4" autoplay loop muted></video>
+  </a-assets>
   <a-scene embedded arjs='sourceType: webcam;'>
     <a-marker preset="hiro">
-      <a-video id="my-video" src="https://test-engineer1.github.io/AR_test/safari.mp4" width="2" height="1" position="0 0.5 0" loop></a-video>
+      <!-- a-videoタグのsrc属性をIDに変更 -->
+      <a-video src="#ar-video" width="2" height="1" position="0 0.5 0"></a-video>
       <a-plane id="play-button" position="0 -0.5 0" width="2" height="0.5" color="#000" opacity="0.5" text="value: Click to play video; color: #FFF;"></a-plane>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      var video = document.getElementById('my-video');
+      var video = document.getElementById('ar-video');
       var playButton = document.getElementById('play-button');
 
       playButton.addEventListener('click', function () {
@@ -28,6 +33,11 @@
         } else {
           video.pause();
         }
+      });
+
+      // ページがクリックされたときに動画を再生するイベントリスナーを追加
+      window.addEventListener('click', function () {
+        video.play();
       });
     });
   </script>
